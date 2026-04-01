@@ -9,10 +9,10 @@ export default defineConfig({
     setupFiles: './vitest.setup.mjs',
   },
   server: {
-    port: 8080, // Port for development
+    port: 3000, // Port for development
   },
    preview: {
-    port: 8080, // Port for the preview server (production)
+    port: 3000, // Port for the preview server (production)
   },
   resolve: {
     tsconfigPaths: true,
