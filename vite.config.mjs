@@ -8,7 +8,12 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './vitest.setup.mjs',
   },
-
+  server: {
+    port: 8080, // Port for development
+  },
+   preview: {
+    port: 8080, // Port for the preview server (production)
+  },
   resolve: {
     tsconfigPaths: true,
   },
