@@ -15,15 +15,33 @@ import {
 } from '@mantine/core';
 import { logIn } from '@/api/auth';
 import classes from './LoginPage.module.css';
+import toast from 'react-hot-toast';
 
 export default function LoginPage() {
   const [data, setData] = useState<{ username: string; pass: string }>({ username: '', pass: '' });
+  const [blocked, setBlocked] = useState<boolean>(false)
   const navigate = useNavigate();
 
   const login = async () => {
     try {
-      await logIn(data.username, data.pass);
-      navigate('dashboard');
+      toast.promise( logIn(data.username, data.pass),
+      {
+        loading: 'Authentication...',
+        success: ()=>{
+                  setBlocked(false)
+                  navigate('dashboard');
+          return <b>Logged in succesfully!</b>
+        },
+        error: (err) => {
+      const status = err?.response?.status;
+      setBlocked(false)
+      if (status === 401) {
+        return <b>Username or password is incorrect!</b>;
+      }      
+      return <b>Could not login.</b>;
+      }
+      }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +74,7 @@ export default function LoginPage() {
             required
             mt="md"
           />
-          <Button fullWidth mt="xl" onClick={login}>
+          <Button fullWidth mt="xl" onClick={()=>{setBlocked(true);login()}} disabled={blocked}>
             Sign in
           </Button>
         </Paper>

@@ -1,12 +1,20 @@
 import { Paper,  Text, Flex , Box} from "@mantine/core"
 
+
 type CardProps = {
 children: React.ReactNode,
  label?: string,
  title: string
+
 }
 
+
+
 export default function CustomCard ({children,label, title}:CardProps){
+
+
+
+
 return <><Paper withBorder mih='10rem' maw='20rem'radius="md" p="xs" //key={stat.label}
 >
         <Flex direction='column' justify='center'>
